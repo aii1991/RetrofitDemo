@@ -1,13 +1,10 @@
 package com.jason.retrofitdemo.net;
 
 import com.jason.retrofitdemo.AppConfig;
-import com.jason.retrofitdemo.net.interceptor.RspCacheControllerInterceptor;
 import com.jason.retrofitdemo.net.interceptor.RspCheckInterceptor;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.GsonConverterFactory;
@@ -42,11 +39,6 @@ public class RetrofitManager {
         if (AppConfig.DEBUG){
             builder.addInterceptor(LoginInterceptor);
         }
-        builder.addNetworkInterceptor(new RspCacheControllerInterceptor());
-
-        File cacheFile = new File(AppConfig.HTTP_CACHE_PAth);
-        Cache cache = new Cache(cacheFile,AppConfig.CACHE_SIZE);
-        builder.cache(cache);
 
         builder.connectTimeout(15, TimeUnit.SECONDS);
         builder.readTimeout(20, TimeUnit.SECONDS);
